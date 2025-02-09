@@ -1,0 +1,124 @@
+{
+    "info": {
+        "name": "PatientAPI Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Create Patient",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"family\": \"Doe\",\n    \"given\": \"John\",\n    \"birthDate\": \"2024-01-01T00:00:00Z\",\n    \"gender\": \"Male\",\n    \"active\": true\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/patients",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "patients"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Get Patient by ID",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{baseUrl}}/api/patients/:id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "patients",
+                        ":id"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Search Patients by Birth Date",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "{{baseUrl}}/api/patients/search?birthDate=eq2024-01-01",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "patients",
+                        "search"
+                    ],
+                    "query": [
+                        {
+                            "key": "birthDate",
+                            "value": "eq2024-01-01"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Update Patient",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"id\": \"replace-with-patient-id\",\n    \"family\": \"Doe\",\n    \"given\": \"John Updated\",\n    \"birthDate\": \"2024-01-01T00:00:00Z\",\n    \"gender\": \"Male\",\n    \"active\": false\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/patients/:id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "patients",
+                        ":id"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "Delete Patient",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "{{baseUrl}}/api/patients/:id",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "patients",
+                        ":id"
+                    ]
+                }
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:5001"
+        }
+    ]
+}
