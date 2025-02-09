@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  patientapi:
+    build: ./PatientAPI
+    container_name: patient_api
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_URLS=http://+:5001
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./PatientAPI/patients.db:/app/patients.db
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://patientapi:5001/api/health || exit 1"]
+      interval: 10s
+      retries: 2
+      start_period: 10s
+
+  patientseeder:
+    build: ./PatientSeeder
+    container_name: patient_seeder
+    depends_on:
+      patientapi:
+        condition: service_healthy
+    environment:
+      - API_URL=http://patientapi:5001
+    entrypoint: ["/bin/sh", "-c", "sleep 5 && dotnet PatientSeeder.dll"]
+    restart: "no"
